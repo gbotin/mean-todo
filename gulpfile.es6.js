@@ -6,6 +6,7 @@ import babel from 'gulp-babel';
 import concat from 'gulp-concat';
 import watch from 'gulp-watch';
 import plumber from 'gulp-plumber';
+import mocha from 'gulp-mocha';
 import rename from 'gulp-rename';
 import nodemon from 'gulp-nodemon';
 import imagemin from 'gulp-imagemin';
@@ -134,6 +135,11 @@ gulp.task("serve", () => {
   }).on('restart', () => {
     setTimeout(() => { livereload.reload('/') }, 1000);
   });
+});
+
+gulp.task('test', () => {
+  gulp.src('dist/server/test/*.js')
+    .pipe(mocha());
 });
 
 gulp.task("default", ["build", "serve", "watch"]);

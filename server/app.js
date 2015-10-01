@@ -4,7 +4,7 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
-import routes from './routes/api';
+import api from './routes/api';
 
 var app = express();
 
@@ -13,10 +13,16 @@ app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
 
-app.use('/api', routes());
+app.use('/api', api());
 
-export default app;
+var todos = [
+  {title: 'test 1', status: 'wait'},
+  {title: 'test 2', status: 'wait'},
+  {title: 'test 3', status: 'wait'}
+];
+
+export {app, todos}
